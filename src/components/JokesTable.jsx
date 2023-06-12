@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
+import Login from "./Login";
 
 const JokesTable = () => {
   const [jokes, setJokes] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetchJokes();
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   const fetchJokes = async () => {
@@ -19,8 +25,13 @@ const JokesTable = () => {
     }
   };
 
-  return (
-    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+  const logOut = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+  };
+
+  return isLoggedIn ? (
+    <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
       <table className="table table-bordered table-lg">
         <thead className="table-dark">
           <tr>
@@ -37,7 +48,17 @@ const JokesTable = () => {
           ))}
         </tbody>
       </table>
+      <div className="d-flex my-3">
+        <button className="btn btn-primary me-3" onClick={fetchJokes}>
+          Fetch Jokes
+        </button>
+        <button className="btn btn-danger" onClick={logOut}>
+          Logout
+        </button>
+      </div>
     </div>
+  ) : (
+    <Login setIsLoggedIn={setIsLoggedIn} />
   );
 };
 
