@@ -17,7 +17,12 @@ const Login = (props) => {
   };
 
   return (
-    <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+    <div className="container d-flex flex-column  align-items-center min-vh-100">
+      <div className="border p-3 px-5 d-flex flex-column align-items-center my-5">
+        <h3 className="text-center mb-5">Login Details</h3>
+        <p>username: anvesh</p>
+        <p>password: anvesh123</p>
+      </div>
       <h2>Login</h2>
       {error && <div className="alert alert-danger my-3">{error}</div>}
       <form
